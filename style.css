@@ -102,6 +102,15 @@ h6 {
 	padding:100px 0px;
 	position:relative;
 }
+.banner-full {
+	background: #7a60ff;
+	background: linear-gradient(to left, #7a60ff, #cd9ffa);
+	height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+	/* position:relative; */
+}
 .banner::before {
 	content: "";
 	display: block;
