@@ -1,5 +1,6 @@
 var userPosition = null;
 var realData = null;
+var l = 0;
 function tryNowFunction() {
     getLocation()
         .then((wasSuccessful) => {
@@ -92,17 +93,16 @@ function displayInfo() {
         const data_column = newReport.children;
         document.getele
         console.log(realData.properties.periods[i].isDaytime)
-        data_column[0].getElementsByTagName('h6')[0].textContent = extractTime(realData.properties.periods[i].endTime);
-        data_column[0].getElementsByTagName("i")[0].className = dayOrNight(realData.properties.periods[i].isDaytime);
-        data_column[1].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].temperature + realData.properties.periods[i].temperatureUnit;
-        data_column[1].getElementsByTagName('i')[0].className = categorizeTemperature(realData.properties.periods[i].temperature);
-        data_column[2].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].windSpeed;
-        data_column[3].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].probabilityOfPrecipitation.value + '%';
-        data_column[4].getElementsByTagName('h6')[0].textContent = "bruh";
-        data_column[5].getElementsByTagName('h6')[0].textContent = "bruh";
+        data_column[0].getElementsByTagName('h6')[0].textContent = extractTime(realData.properties.periods[l].endTime);
+        data_column[0].getElementsByTagName("i")[0].className = dayOrNight(realData.properties.periods[l].isDaytime);
+        data_column[1].getElementsByTagName('h6')[0].textContent = realData.properties.periods[l].temperature + realData.properties.periods[l].temperatureUnit;
+        data_column[1].getElementsByTagName('i')[0].className = categorizeTemperature(realData.properties.periods[l].temperature);
+        data_column[2].getElementsByTagName('h6')[0].textContent = realData.properties.periods[l].windSpeed;
+        data_column[3].getElementsByTagName('h6')[0].textContent = realData.properties.periods[l].probabilityOfPrecipitation.value + '%';
+        data_column[4].getElementsByTagName('h6')[0].textContent = "None\nClear";
         newReport.style = "visibility: visible"
         container.appendChild(newReport);
-
+        l++
         // const h6Element = newElement.getElementsByTagName('h6')[0];
         // 0    Time
         // 1    Temperature

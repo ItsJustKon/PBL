@@ -38,12 +38,14 @@
             <div class="data-column">
               <h5 style="color:White;">Time</h5>
               <!-- <img style="width: 50px; height: 50px;" src=""></img> -->
-              <i id="time-of-day" class="fa-solid fa-sun" style="color: white; width: 50px; height: 50px; font-size: 40px;"></i>
+              <i id="time-of-day" class="fa-solid fa-sun"
+                style="color: white; width: 50px; height: 50px; font-size: 40px;"></i>
               <h6 style="color:White;">Temp</h6>
             </div>
             <div class="data-column">
               <h5 style="color:White;">Temperature</h5>
-              <i id="time-of-day" class="fa-solid fa-sun" style="color: white; width: 50px; height: 50px; font-size: 40px;"></i>
+              <i id="time-of-day" class="fa-solid fa-sun"
+                style="color: white; width: 50px; height: 50px; font-size: 40px;"></i>
               <!-- <img style="width: 50px; height: 50px;" src=""></img> -->
               <h6 style="color:White;">Temp</h6>
             </div>
@@ -60,22 +62,18 @@
               <h6 style="color:White;">Temp</h6>
             </div>
             <div class="data-column">
-              <h5 style="color:White;">Hurricane</h5>
+              <h5 style="color:White;">Critical Weather</h5>
               <!-- <img style="width: 50px; height: 50px;" src=""></img> -->
               <i class="fa-solid fa-cloud-showers-water"
                 style="color: white; width: 50px; height: 50px; font-size: 40px;"></i>
-              <h6 style="color:White;">Temp</h6>
+              <h6 style="color:White;">None</h6>
             </div>
-            <div class="data-column">
-              <h5 style="color:White;">Tornadoes</h5>
-              <!-- <img style="width: 50px; height: 50px;" src=""></img> -->
-              <i class="fa-solid fa-tornado" style="color: white; width: 50px; height: 50px; font-size: 40px;"></i>
-              <h6 style="color:White;">Temp</h6>
-            </div>
+
             <!-- <p>Temperature, Wind, Rain Probability, Hurricane Prob, Tornadoes Prob</p> -->
           </div>
 
         </div>
+        <a id="notifyBtn" class="about-btn">Get Notifications</a>
 
         <div class="col-md-4 col-sm-12"> </div>
       </div>
@@ -85,7 +83,6 @@
   </section>
 
   <!-------Banner End------->
-
 
   <footer class="footer-copy">
     <div class="container-fluid">
@@ -103,5 +100,28 @@
       console.log('Page fully loaded');
       getWeatherInfo()
     };
+
+  </script>
+
+  <script>
+    document.getElementById('notifyBtn').addEventListener('click', () => {
+      // Check if the browser supports notifications
+      if ('Notification' in window) {
+        // Request permission from the user
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+            // Create and show the notification
+            new Notification('Hello!', {
+              body: 'There is no critical weather.',
+              icon: 'weatherAppIcon.png' // Optional: path to an icon image
+            });
+          } else {
+            alert('Notification permission denied.');
+          }
+        });
+      } else {
+        alert('Your browser does not support notifications.');
+      }
+    });
 
   </script>
