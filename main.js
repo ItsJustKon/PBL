@@ -90,11 +90,14 @@ function displayInfo() {
     for (let i = 0; i < 11; i++) {
         const newReport = report.cloneNode(true);
         const data_column = newReport.children;
-
+        document.getele
+        console.log(realData.properties.periods[i].isDaytime)
         data_column[0].getElementsByTagName('h6')[0].textContent = extractTime(realData.properties.periods[i].endTime);
+        data_column[0].getElementsByTagName("i")[0].className = dayOrNight(realData.properties.periods[i].isDaytime);
         data_column[1].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].temperature + realData.properties.periods[i].temperatureUnit;
+        data_column[1].getElementsByTagName('i')[0].className = categorizeTemperature(realData.properties.periods[i].temperature);
         data_column[2].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].windSpeed;
-        data_column[3].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].probabilityOfPrecipitation.value+'%';
+        data_column[3].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].probabilityOfPrecipitation.value + '%';
         data_column[4].getElementsByTagName('h6')[0].textContent = "bruh";
         data_column[5].getElementsByTagName('h6')[0].textContent = "bruh";
         newReport.style = "visibility: visible"
@@ -124,4 +127,20 @@ function extractTime(dateString) {
     return time;
 }
 
+function dayOrNight(isItDay) {
+    if (isItDay) {
+        return "fa-solid fa-sun"
+    } else {
+        return "fas fa-moon"
+    }
+}
 
+function categorizeTemperature(temp) {
+    if (temp < 55) {
+        return "fa-solid fa-temperature-quarter";
+    } else if (temp >= 55 && temp <= 75) {
+        return "fa-solid fa-temperature-half";
+    } else {
+        return "fa-solid fa-temperature-three-quarters";
+    }
+}
