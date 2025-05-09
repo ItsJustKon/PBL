@@ -73,7 +73,7 @@ function getWeatherInfo() {
                     console.error('Fetch error:', error);
                     // Handle errors
                 });
-            
+
             // realData.properties.forecastHourly for the url
             // Process the data
         })
@@ -84,18 +84,44 @@ function getWeatherInfo() {
 
 }
 
-function displayInfo()
-{
+function displayInfo() {
     const container = document.querySelector(".reportContainer")
     const report = document.querySelector(".report")
-    const data_column = report.getElementsByTagName(".data-column")
-    for(const i = 0; i < data_column.length; i++)
-        {
-            const newElement = template.cloneNode(true);
-            newElement.parentElement.getElementsByTagName('h6')[0].textContent = "bruh";
-            container.appendChild(template.cloneNode());
+    for (let i = 0; i < 11; i++) {
+        const newReport = report.cloneNode(true);
+        const data_column = newReport.children;
 
-            // const h6Element = newElement.getElementsByTagName('h6')[0];
-        }
+        data_column[0].getElementsByTagName('h6')[0].textContent = extractTime(realData.properties.periods[i].endTime);
+        data_column[1].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].temperature + realData.properties.periods[i].temperatureUnit;
+        data_column[2].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].windSpeed;
+        data_column[3].getElementsByTagName('h6')[0].textContent = realData.properties.periods[i].probabilityOfPrecipitation.value+'%';
+        data_column[4].getElementsByTagName('h6')[0].textContent = "bruh";
+        data_column[5].getElementsByTagName('h6')[0].textContent = "bruh";
+        newReport.style = "visibility: visible"
+        container.appendChild(newReport);
+
+        // const h6Element = newElement.getElementsByTagName('h6')[0];
+        // 0    Time
+        // 1    Temperature
+        // 2    Wind
+        // 3    Rain
+        // 4    Hurricane
+        // 5    Tornadoes
+
+
+    }
+
     realData.properties.periods[0]
 }
+
+function extractTime(dateString) {
+    // Create a Date object from the input string
+    let date = new Date(dateString);
+
+    // Extract the time in HH:MM AM/PM format
+    let time = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+    return time;
+}
+
+
