@@ -86,12 +86,11 @@ function getWeatherInfo() {
 }
 
 function displayInfo() {
-    const container = document.querySelector(".reportContainer")
+    const container = document.querySelectorAll(".reportContainer")
     const report = document.querySelector(".report")
     for (let i = 0; i < 11; i++) {
         const newReport = report.cloneNode(true);
         const data_column = newReport.children;
-        document.getele
         console.log(realData.properties.periods[i].isDaytime)
         data_column[0].getElementsByTagName('h6')[0].textContent = extractTime(realData.properties.periods[l].endTime);
         data_column[0].getElementsByTagName("i")[0].className = dayOrNight(realData.properties.periods[l].isDaytime);
@@ -99,9 +98,9 @@ function displayInfo() {
         data_column[1].getElementsByTagName('i')[0].className = categorizeTemperature(realData.properties.periods[l].temperature);
         data_column[2].getElementsByTagName('h6')[0].textContent = realData.properties.periods[l].windSpeed;
         data_column[3].getElementsByTagName('h6')[0].textContent = realData.properties.periods[l].probabilityOfPrecipitation.value + '%';
-        data_column[4].getElementsByTagName('h6')[0].textContent = "None\nClear";
+        data_column[4].getElementsByTagName('h7')[0].textContent = "None: " + realData.properties.periods[l].shortForecast;
         newReport.style = "visibility: visible"
-        container.appendChild(newReport);
+        container[0].appendChild(newReport);
         l++
         // const h6Element = newElement.getElementsByTagName('h6')[0];
         // 0    Time
@@ -111,10 +110,10 @@ function displayInfo() {
         // 4    Hurricane
         // 5    Tornadoes
 
-
+       console.log(assessCriticalWeather(realData.properties.periods[l].temperature, realData.properties.periods[l].probabilityOfPrecipitation.value, realData.properties.periods[l].windSpeed, realData.properties.periods[0].relativeHumidity.value));
     }
 
-    realData.properties.periods[0]
+    // container[1].querySelector(".report").children[0].getElementsByTagName("h5")[0].textContent = "Success"
 }
 
 function extractTime(dateString) {
@@ -144,3 +143,24 @@ function categorizeTemperature(temp) {
         return "fa-solid fa-temperature-three-quarters";
     }
 }
+
+function assessCriticalWeather(tempF, rainProb, windSpeed, humidity) {
+    let weatherRisks = {};
+
+    // Tornado likelihood - Based on high wind speeds and storm conditions
+    let tornadoRisk = (windSpeed > 40 && humidity > 55 && rainProb > 50) ? (windSpeed * 0.5 + humidity * 0.3 + rainProb * 0.2) : 0;
+    weatherRisks.tornado = Math.min(tornadoRisk, 100) + "%";
+
+    // Hurricane likelihood - Based on extreme wind speeds and storm conditions
+    let hurricaneRisk = (windSpeed > 75 && humidity > 70 && rainProb > 60) ? (windSpeed * 0.6 + humidity * 0.25 + rainProb * 0.15) : 0;
+    weatherRisks.hurricane = Math.min(hurricaneRisk, 100) + "%";
+
+    // Hail likelihood - Based on temperature and storm severity
+    let hailRisk = (tempF < 50 && rainProb > 70 && windSpeed > 20) ? (rainProb * 0.5 + windSpeed * 0.3 + (50 - tempF) * 0.2) : 0;
+    weatherRisks.hail = Math.min(hailRisk, 100) + "%";
+
+    return weatherRisks;
+}
+
+// Example usage:
+console.log(assessCriticalWeather(45, 80, 50, 60));

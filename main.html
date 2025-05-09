@@ -64,17 +64,27 @@
             <div class="data-column">
               <h5 style="color:White;">Critical Weather</h5>
               <!-- <img style="width: 50px; height: 50px;" src=""></img> -->
-              <i class="fa-solid fa-cloud-showers-water"
+              <i class="fa-solid fa-triangle-exclamation"
                 style="color: white; width: 50px; height: 50px; font-size: 40px;"></i>
-              <h6 style="color:White;">None</h6>
+              <h7 style="color:White;">None</h7>
             </div>
 
             <!-- <p>Temperature, Wind, Rain Probability, Hurricane Prob, Tornadoes Prob</p> -->
           </div>
 
         </div>
-        <a id="notifyBtn" class="about-btn">Get Notifications</a>
+        <div class="reportContainer">
+          <div class="report">
+            <div class="data-column">
+              <h4 style="color:White;">Next Critical Weather Concern</h4>
+              <i class="fa-solid fa-triangle-exclamation"
+                style="color: white; width: 50px; height: 50px; font-size: 40px;"></i>
+              <!-- <img style="width: 50px; height: 50px;" src=""></img> -->
+              <h5 style="color:White;">No time soon 🥳</h5>
+            </div>
+          </div>
 
+        </div>
         <div class="col-md-4 col-sm-12"> </div>
       </div>
 
@@ -100,28 +110,5 @@
       console.log('Page fully loaded');
       getWeatherInfo()
     };
-
-  </script>
-
-  <script>
-    document.getElementById('notifyBtn').addEventListener('click', () => {
-      // Check if the browser supports notifications
-      if ('Notification' in window) {
-        // Request permission from the user
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            // Create and show the notification
-            new Notification('Hello!', {
-              body: 'There is no critical weather.',
-              icon: 'weatherAppIcon.png' // Optional: path to an icon image
-            });
-          } else {
-            alert('Notification permission denied.');
-          }
-        });
-      } else {
-        alert('Your browser does not support notifications.');
-      }
-    });
 
   </script>
