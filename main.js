@@ -65,6 +65,7 @@ function getWeatherInfo() {
                 .then(data => {
                     console.log('Data received:', data);
                     realData = data;
+                    displayInfo()
                     // realData.properties.forecastHourly for the url
                     // Process the data
                 })
@@ -80,4 +81,21 @@ function getWeatherInfo() {
             console.error('Fetch error:', error);
             // Handle errors
         });
+
+}
+
+function displayInfo()
+{
+    const container = document.querySelector(".reportContainer")
+    const report = document.querySelector(".report")
+    const data_column = report.getElementsByTagName(".data-column")
+    for(const i = 0; i < data_column.length; i++)
+        {
+            const newElement = template.cloneNode(true);
+            newElement.parentElement.getElementsByTagName('h6')[0].textContent = "bruh";
+            container.appendChild(template.cloneNode());
+
+            // const h6Element = newElement.getElementsByTagName('h6')[0];
+        }
+    realData.properties.periods[0]
 }
